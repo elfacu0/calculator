@@ -16,7 +16,7 @@ export class Calculator {
             '+',
             '23',
             '*',
-            '34',
+            '-34',
             '/',
             '34',
             '+',
@@ -25,13 +25,13 @@ export class Calculator {
             '32',
             '*',
             '234',
+            '-3',
         ];
         this.currentTerm = '';
         this.lastDigit = '*';
     }
 
     dispatch = (action: Actions) => {
-        console.log(this.expression, action);
         switch (action.type) {
             case 'addNegative':
                 if (this.currentTerm.includes('-') === false) {
@@ -41,25 +41,20 @@ export class Calculator {
                 }
                 return this.expression.join('');
             case 'addNumber':
-                this.currentTerm += action.value;
                 if (this.isLastDigitOperator(this.expression) === false) {
                     this.expression.pop();
                 }
+                this.currentTerm += action.value;
                 this.expression.push(this.currentTerm);
                 this.setLastDigit();
                 return this.expression.join('');
             case 'addOperator':
-                if (
-                    this.isLastDigitOperator(this.expression) ||
-                    this.lastDigit === '-'
-                ) {
-                    return this.expression.join('');
-                } else {
+                if (this.isLastDigitOperator(this.expression) === false) {
                     this.expression.push(action.value);
                     this.currentTerm = '';
                     this.setLastDigit();
-                    return this.expression.join('');
                 }
+                return this.expression.join('');
             case 'removeLastDigit':
                 if (this.expression.length > 0) {
                     if (this.expression[this.expression.length - 1] === '') {
@@ -128,7 +123,6 @@ export class Calculator {
             currentNumber = Number(expression[i]);
             if (OPERATORS.includes(expression[i]) === false) {
                 total += currentNumber;
-                console.log(total, currentNumber);
             }
         }
         this.expression = [];
