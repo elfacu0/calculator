@@ -60,7 +60,7 @@ export class Calculator {
                     if (this.expression[this.expression.length - 1] === '') {
                         this.expression.pop();
                     }
-                    let lastTerm: string = this.expression.pop() || '';
+                    let lastTerm = this.expression.pop() || '';
                     lastTerm = lastTerm.substring(0, lastTerm.length - 1);
                     this.currentTerm = lastTerm;
                     this.setLastDigit();

@@ -58,13 +58,18 @@ const ButtonsColumn = styled.div`
     width: 100%;
 `;
 
-const ButtonWrapper = styled.div`
-    background-color: #343434;
+type ButtonWrapperProps = {
+    operator?: boolean;
+};
+
+const ButtonWrapper = styled.div<ButtonWrapperProps>`
+    background-color: ${(props: ButtonWrapperProps) =>
+        props.operator === true ? '#193543' : '#343434'};
     display: flex;
     justify-content: center;
     align-items: center;
     color: #e8e8e8;
-    font-size: 24px;
+    font-size: 26px;
     border-radius: 5px;
     margin: 10px;
     height: 100%;
@@ -216,6 +221,7 @@ function App() {
                             3
                         </ButtonWrapper>
                         <ButtonWrapper
+                            operator={true}
                             onClick={() =>
                                 getResult({
                                     type: 'calculate',
@@ -227,6 +233,7 @@ function App() {
                     </ButtonsColumn>
                     <ButtonsColumn>
                         <ButtonWrapper
+                            operator={true}
                             onClick={() =>
                                 addDigit({
                                     type: 'removeLastDigit',
@@ -236,6 +243,7 @@ function App() {
                             DEL
                         </ButtonWrapper>
                         <ButtonWrapper
+                            operator={true}
                             onClick={() => {
                                 addDigit({
                                     type: 'addOperator',
@@ -246,6 +254,7 @@ function App() {
                             /
                         </ButtonWrapper>
                         <ButtonWrapper
+                            operator={true}
                             onClick={() =>
                                 addDigit({
                                     type: 'addOperator',
@@ -256,6 +265,7 @@ function App() {
                             X
                         </ButtonWrapper>
                         <ButtonWrapper
+                            operator={true}
                             onClick={() =>
                                 addDigit({
                                     type: 'addNegative',
@@ -266,6 +276,7 @@ function App() {
                             -
                         </ButtonWrapper>
                         <ButtonWrapper
+                            operator={true}
                             onClick={() =>
                                 addDigit({
                                     type: 'addOperator',
