@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { Calculator } from './entities/Calculator';
 const calculator = new Calculator();
+let startHoldingTime = new Date();
 
 const AppWrapper = styled.div`
     width: 100%;
@@ -83,7 +84,7 @@ export type Actions =
           type: 'addNumber' | 'addOperator' | 'addNegative';
           value: string;
       }
-    | { type: 'removeLastDigit' | 'calculate' };
+    | { type: 'removeLastDigit' | 'calculate' | 'clearAll' };
 
 function App() {
     const [expression, setExpression] = useState('');
@@ -95,6 +96,13 @@ function App() {
     const getResult = (action: Actions) => {
         setResult(calculator.dispatch(action));
         setExpression(calculator.result);
+    };
+
+    const clearAllInput = (action: Actions) => {
+        if (new Date().getTime() - startHoldingTime.getTime() > 400) {
+            setResult(calculator.dispatch(action));
+            setExpression(calculator.result);
+        }
     };
 
     return (
@@ -234,11 +242,15 @@ function App() {
                     <ButtonsColumn>
                         <ButtonWrapper
                             operator={1}
-                            onClick={() =>
+                            onClick={() => {
                                 addDigit({
                                     type: 'removeLastDigit',
-                                })
-                            }
+                                });
+                            }}
+                            onMouseDown={() => (startHoldingTime = new Date())}
+                            onMouseUp={() => {
+                                clearAllInput({ type: 'clearAll' });
+                            }}
                         >
                             DEL
                         </ButtonWrapper>

@@ -71,18 +71,21 @@ export class Calculator {
                 return this.expression.join('');
             case 'calculate':
                 return this.calculate(this.expression);
+            case 'clearAll':
+                return this.reset();
             default:
                 return '';
         }
     };
 
     calculate(expression: string[]) {
-        if (this.isLastDigitOperator(expression)) {
+        while (this.isLastDigitOperator(expression) || this.lastDigit === '-') {
             expression.pop();
+            this.setLastDigit();
         }
         expression = this.multiplyAndDivide(expression);
         this.result = this.sum(expression);
-        this.reset();
+        this.clearExpression();
         return this.result;
     }
 
@@ -144,9 +147,17 @@ export class Calculator {
         }
     }
 
-    reset() {
+    clearExpression() {
         this.expression = [this.result];
         this.currentTerm = '';
         this.lastDigit = '*';
+    }
+
+    reset() {
+        this.result = '';
+        this.expression = [];
+        this.currentTerm = '';
+        this.lastDigit = '*';
+        return '';
     }
 }
