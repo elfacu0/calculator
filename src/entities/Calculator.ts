@@ -1,4 +1,9 @@
-import { Actions } from '../App';
+export type Actions =
+    | {
+          type: 'addNumber' | 'addOperator' | 'addNegative';
+          value: string;
+      }
+    | { type: 'removeLastDigit' | 'calculate' | 'clearAll' };
 
 const OPERATORS = ['*', '/', '+'];
 
