@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import { Calculator } from './entities/Calculator';
+const calculator = new Calculator();
 
 const AppWrapper = styled.div`
     width: 100%;
@@ -31,7 +33,7 @@ const ResultContainer = styled.div`
     height: 30%;
 `;
 
-const EquationText = styled.span`
+const ExpressionText = styled.span`
     color: white;
     font-size: 28px;
 `;
@@ -66,41 +68,213 @@ const ButtonWrapper = styled.div`
     border-radius: 5px;
     margin: 10px;
     height: 100%;
+    cursor: pointer;
+    &:hover {
+        background-color: #00d4d4;
+    }
 `;
+export type Actions =
+    | {
+          type: 'addNumber' | 'addOperator' | 'addNegative';
+          value: string;
+      }
+    | { type: 'removeLastDigit' | 'calculate' };
 
 function App() {
+    const [expression, setExpression] = useState('');
+    const [result, setResult] = useState('');
+    const addDigit = (action: Actions) => {
+        setExpression(calculator.dispatch(action));
+    };
+
+    const getResult = (action: Actions) => {
+        setResult(calculator.dispatch(action));
+        setExpression(calculator.result);
+    };
+
     return (
         <AppWrapper>
             <CalculatorContainer>
                 <ResultContainer>
-                    <EquationText>3+3</EquationText>
-                    <ResultText>34+434</ResultText>
+                    <ExpressionText>{expression}</ExpressionText>
+                    <ResultText>{result}</ResultText>
                 </ResultContainer>
                 <ButtonsContainer>
                     <ButtonsColumn>
-                        <ButtonWrapper>7</ButtonWrapper>
-                        <ButtonWrapper>4</ButtonWrapper>
-                        <ButtonWrapper>1</ButtonWrapper>
-                        <ButtonWrapper>.</ButtonWrapper>
+                        <ButtonWrapper
+                            onClick={() =>
+                                addDigit({
+                                    type: 'addNumber',
+                                    value: '7',
+                                })
+                            }
+                        >
+                            7
+                        </ButtonWrapper>
+                        <ButtonWrapper
+                            onClick={() =>
+                                addDigit({
+                                    type: 'addNumber',
+                                    value: '4',
+                                })
+                            }
+                        >
+                            4
+                        </ButtonWrapper>
+                        <ButtonWrapper
+                            onClick={() =>
+                                addDigit({
+                                    type: 'addNumber',
+                                    value: '1',
+                                })
+                            }
+                        >
+                            1
+                        </ButtonWrapper>
+                        <ButtonWrapper
+                            onClick={() =>
+                                addDigit({
+                                    type: 'addNumber',
+                                    value: '.',
+                                })
+                            }
+                        >
+                            .
+                        </ButtonWrapper>
                     </ButtonsColumn>
                     <ButtonsColumn>
-                        <ButtonWrapper>8</ButtonWrapper>
-                        <ButtonWrapper>5</ButtonWrapper>
-                        <ButtonWrapper>6</ButtonWrapper>
-                        <ButtonWrapper>0</ButtonWrapper>
+                        <ButtonWrapper
+                            onClick={() =>
+                                addDigit({
+                                    type: 'addNumber',
+                                    value: '8',
+                                })
+                            }
+                        >
+                            8
+                        </ButtonWrapper>
+                        <ButtonWrapper
+                            onClick={() =>
+                                addDigit({
+                                    type: 'addNumber',
+                                    value: '5',
+                                })
+                            }
+                        >
+                            5
+                        </ButtonWrapper>
+                        <ButtonWrapper
+                            onClick={() =>
+                                addDigit({
+                                    type: 'addNumber',
+                                    value: '2',
+                                })
+                            }
+                        >
+                            2
+                        </ButtonWrapper>
+                        <ButtonWrapper
+                            onClick={() =>
+                                addDigit({
+                                    type: 'addNumber',
+                                    value: '0',
+                                })
+                            }
+                        >
+                            0
+                        </ButtonWrapper>
                     </ButtonsColumn>
                     <ButtonsColumn>
-                        <ButtonWrapper>9</ButtonWrapper>
-                        <ButtonWrapper>6</ButtonWrapper>
-                        <ButtonWrapper>3</ButtonWrapper>
-                        <ButtonWrapper>=</ButtonWrapper>
+                        <ButtonWrapper
+                            onClick={() =>
+                                addDigit({
+                                    type: 'addNumber',
+                                    value: '9',
+                                })
+                            }
+                        >
+                            9
+                        </ButtonWrapper>
+                        <ButtonWrapper
+                            onClick={() =>
+                                addDigit({
+                                    type: 'addNumber',
+                                    value: '6',
+                                })
+                            }
+                        >
+                            6
+                        </ButtonWrapper>
+                        <ButtonWrapper
+                            onClick={() =>
+                                addDigit({
+                                    type: 'addNumber',
+                                    value: '3',
+                                })
+                            }
+                        >
+                            3
+                        </ButtonWrapper>
+                        <ButtonWrapper
+                            onClick={() =>
+                                getResult({
+                                    type: 'calculate',
+                                })
+                            }
+                        >
+                            =
+                        </ButtonWrapper>
                     </ButtonsColumn>
                     <ButtonsColumn>
-                        <ButtonWrapper>Del</ButtonWrapper>
-                        <ButtonWrapper>/</ButtonWrapper>
-                        <ButtonWrapper>X</ButtonWrapper>
-                        <ButtonWrapper>-</ButtonWrapper>
-                        <ButtonWrapper>+</ButtonWrapper>
+                        <ButtonWrapper
+                            onClick={() =>
+                                addDigit({
+                                    type: 'removeLastDigit',
+                                })
+                            }
+                        >
+                            DEL
+                        </ButtonWrapper>
+                        <ButtonWrapper
+                            onClick={() => {
+                                addDigit({
+                                    type: 'addOperator',
+                                    value: '/',
+                                });
+                            }}
+                        >
+                            /
+                        </ButtonWrapper>
+                        <ButtonWrapper
+                            onClick={() =>
+                                addDigit({
+                                    type: 'addOperator',
+                                    value: '*',
+                                })
+                            }
+                        >
+                            X
+                        </ButtonWrapper>
+                        <ButtonWrapper
+                            onClick={() =>
+                                addDigit({
+                                    type: 'addNegative',
+                                    value: '-',
+                                })
+                            }
+                        >
+                            -
+                        </ButtonWrapper>
+                        <ButtonWrapper
+                            onClick={() =>
+                                addDigit({
+                                    type: 'addOperator',
+                                    value: '+',
+                                })
+                            }
+                        >
+                            +
+                        </ButtonWrapper>
                     </ButtonsColumn>
                 </ButtonsContainer>
             </CalculatorContainer>
