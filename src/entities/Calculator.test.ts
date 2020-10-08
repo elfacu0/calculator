@@ -116,3 +116,88 @@ describe('basic tests', () => {
         expect(calculator.dispatch({ type: 'calculate' })).toBe(correctAnswer);
     });
 });
+
+describe('Multiplication Tests', () => {
+    it('should multiply 2 positive numbers and return a bigger one', () => {
+        const number1 = randomNumberBetween(0, 1000);
+        const number1String = number1.toString();
+        const number2 = randomNumberBetween(0, 1000);
+        const number2String = number2.toString();
+        calculator.dispatch({
+            type: 'addNumber',
+            value: number1String,
+        });
+        calculator.dispatch({
+            type: 'addOperator',
+            value: '*',
+        });
+        calculator.dispatch({
+            type: 'addNumber',
+            value: number2String,
+        });
+        const result = Number(calculator.dispatch({ type: 'calculate' }));
+        expect(result).toBeGreaterThanOrEqual(number1);
+        expect(result).toBeGreaterThanOrEqual(number2);
+        expect(result).toBe(number1 * number2);
+    });
+
+    it('should multiply 2 negative numbers and return a bigger positive one', () => {
+        const number1 = randomNumberBetween(0, 1000);
+        const number1String = number1.toString();
+        const number2 = randomNumberBetween(0, 1000);
+        const number2String = number2.toString();
+        calculator.dispatch({
+            type: 'addNegative',
+            value: '-',
+        });
+        calculator.dispatch({
+            type: 'addNumber',
+            value: number1String,
+        });
+        calculator.dispatch({
+            type: 'addOperator',
+            value: '*',
+        });
+        calculator.dispatch({
+            type: 'addNegative',
+            value: '-',
+        });
+        calculator.dispatch({
+            type: 'addNumber',
+            value: number2String,
+        });
+        const result = Number(calculator.dispatch({ type: 'calculate' }));
+        expect(result).toBeGreaterThanOrEqual(-number1);
+        expect(result).toBeGreaterThanOrEqual(-number2);
+        expect(result).toBeGreaterThanOrEqual(0);
+        expect(result).toBe(-number1 * -number2);
+    });
+
+    it('should multiply a negative and a positive number return a smllaer negative one', () => {
+        const number1 = randomNumberBetween(1, 1000);
+        const number1String = number1.toString();
+        const number2 = randomNumberBetween(1, 1000);
+        const number2String = number2.toString();
+        calculator.dispatch({
+            type: 'addNegative',
+            value: '-',
+        });
+        calculator.dispatch({
+            type: 'addNumber',
+            value: number1String,
+        });
+        calculator.dispatch({
+            type: 'addOperator',
+            value: '*',
+        });
+        calculator.dispatch({
+            type: 'addNumber',
+            value: number2String,
+        });
+        const result = Number(calculator.dispatch({ type: 'calculate' }));
+        expect(result).toBeLessThanOrEqual(-number1);
+        expect(result).toBeLessThanOrEqual(number2);
+        expect(result).toBeLessThanOrEqual(0);
+        expect(result).toBe(-number1 * number2);
+    });
+});
