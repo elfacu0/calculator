@@ -201,3 +201,108 @@ describe('Multiplication Tests', () => {
         expect(result).toBe(-number1 * number2);
     });
 });
+
+describe('Division Tests', () => {
+    it('should divide 2 positive numbers, numerator bigger than denominator', () => {
+        const numerator = randomNumberBetween(100, 1000);
+        const numertorString = numerator.toString();
+        const denominator = randomNumberBetween(1, 10);
+        const denominatorString = denominator.toString();
+        calculator.dispatch({
+            type: 'addNumber',
+            value: numertorString,
+        });
+        calculator.dispatch({
+            type: 'addOperator',
+            value: '/',
+        });
+        calculator.dispatch({
+            type: 'addNumber',
+            value: denominatorString,
+        });
+        const result = Number(calculator.dispatch({ type: 'calculate' }));
+        expect(result).toBeGreaterThanOrEqual(0);
+        expect(result).toBeLessThanOrEqual(numerator);
+        expect(result).toBe(numerator / denominator);
+    });
+
+    it('should divide 2 positive numbers, denominator bigger than numerator', () => {
+        const numerator = randomNumberBetween(1, 100);
+        const numertorString = numerator.toString();
+        const denominator = randomNumberBetween(100, 1000);
+        const denominatorString = denominator.toString();
+        calculator.dispatch({
+            type: 'addNumber',
+            value: numertorString,
+        });
+        calculator.dispatch({
+            type: 'addOperator',
+            value: '/',
+        });
+        calculator.dispatch({
+            type: 'addNumber',
+            value: denominatorString,
+        });
+        const result = Number(calculator.dispatch({ type: 'calculate' }));
+        expect(result).toBeLessThanOrEqual(1);
+        expect(result).toBe(numerator / denominator);
+    });
+
+    it('should divide 2 negative number', () => {
+        const numerator = randomNumberBetween(10, 100);
+        const numertorString = numerator.toString();
+        const denominator = randomNumberBetween(100, 1000);
+        const denominatorString = denominator.toString();
+        calculator.dispatch({
+            type: 'addNegative',
+            value: '-',
+        });
+        calculator.dispatch({
+            type: 'addNumber',
+            value: numertorString,
+        });
+        calculator.dispatch({
+            type: 'addOperator',
+            value: '/',
+        });
+        calculator.dispatch({
+            type: 'addNegative',
+            value: '-',
+        });
+        calculator.dispatch({
+            type: 'addNumber',
+            value: denominatorString,
+        });
+        const result = Number(calculator.dispatch({ type: 'calculate' }));
+        expect(result).toBeGreaterThanOrEqual(-numerator);
+        expect(result).toBeGreaterThanOrEqual(-denominator);
+        expect(result).toBeGreaterThan(0);
+        expect(result).toBe(-numerator / -denominator);
+    });
+
+    it('should divide one positive and one negative number, should return negative number', () => {
+        const numerator = randomNumberBetween(10, 100);
+        const numertorString = numerator.toString();
+        const denominator = randomNumberBetween(100, 1000);
+        const denominatorString = denominator.toString();
+        calculator.dispatch({
+            type: 'addNegative',
+            value: '-',
+        });
+        calculator.dispatch({
+            type: 'addNumber',
+            value: numertorString,
+        });
+        calculator.dispatch({
+            type: 'addOperator',
+            value: '/',
+        });
+        calculator.dispatch({
+            type: 'addNumber',
+            value: denominatorString,
+        });
+        const result = Number(calculator.dispatch({ type: 'calculate' }));
+        expect(result).toBeLessThan(0);
+        expect(result).toBe(-numerator / denominator);
+    });
+});
