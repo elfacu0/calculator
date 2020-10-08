@@ -16,22 +16,6 @@ export class Calculator {
     constructor() {
         this.result = '';
         this.expression = [];
-        this.expression = [
-            '2',
-            '+',
-            '23',
-            '*',
-            '-34',
-            '/',
-            '34',
-            '+',
-            '23',
-            '+',
-            '32',
-            '*',
-            '234',
-            '-3',
-        ];
         this.currentTerm = '';
         this.lastDigit = '*';
     }
@@ -39,14 +23,14 @@ export class Calculator {
     dispatch = (action: Actions) => {
         switch (action.type) {
             case 'addNegative':
-                if (this.currentTerm.includes('-') === false) {
+                if (this.lastDigit !== '-') {
                     this.currentTerm = '-';
                     this.expression.push(this.currentTerm);
                     this.setLastDigit();
                 }
                 return this.expression.join('');
             case 'addNumber':
-                if (this.isLastDigitOperator(this.expression) === false) {
+                if (this.isLastDigitOperator() === false) {
                     this.expression.pop();
                 }
                 this.currentTerm += action.value;
@@ -54,7 +38,7 @@ export class Calculator {
                 this.setLastDigit();
                 return this.expression.join('');
             case 'addOperator':
-                if (this.isLastDigitOperator(this.expression) === false) {
+                if (this.isLastDigitNumber() === true) {
                     this.expression.push(action.value);
                     this.currentTerm = '';
                     this.setLastDigit();
@@ -84,12 +68,12 @@ export class Calculator {
     };
 
     calculate(expression: string[]) {
-        while (this.isLastDigitOperator(expression) || this.lastDigit === '-') {
+        while (this.isLastDigitOperator() || this.lastDigit === '-') {
             expression.pop();
             this.setLastDigit();
         }
         expression = this.multiplyAndDivide(expression);
-        this.result = this.sum(expression);
+        this.result = this.sum(expression).toString();
         this.clearExpression();
         return this.result;
     }
@@ -134,7 +118,7 @@ export class Calculator {
             }
         }
         this.expression = [];
-        return total.toString();
+        return total;
     }
 
     setLastDigit() {
@@ -144,8 +128,19 @@ export class Calculator {
         }
     }
 
-    isLastDigitOperator(expression: string[]) {
-        if (OPERATORS.includes(expression[expression.length - 1]) === true) {
+    isLastDigitOperator() {
+        this.setLastDigit();
+        if (OPERATORS.includes(this.lastDigit) === true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    isLastDigitNumber() {
+        const NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        this.setLastDigit();
+        if (NUMBERS.includes(this.lastDigit) === true) {
             return true;
         } else {
             return false;
