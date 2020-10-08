@@ -23,6 +23,7 @@ const ResultContainer = styled.div`
     padding: 20px;
     width: 100%;
     height: 30%;
+    overflow: auto;
 `;
 
 const ExpressionText = styled.span`
