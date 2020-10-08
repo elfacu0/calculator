@@ -90,12 +90,13 @@ export const Calculator: React.FC = () => {
             setExpression(calculator.result);
         }
     };
-
     return (
         <CalculatorContainer>
             <ResultContainer>
-                <ExpressionText>{expression}</ExpressionText>
-                <ResultText>{result}</ResultText>
+                <ExpressionText data-testid="expression">
+                    {expression}
+                </ExpressionText>
+                <ResultText data-testid="result">{result}</ResultText>
             </ResultContainer>
             <ButtonsContainer>
                 <ButtonsColumn>

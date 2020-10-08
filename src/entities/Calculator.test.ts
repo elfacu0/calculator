@@ -58,7 +58,6 @@ describe('Sum Tests', () => {
             type: 'addNumber',
             value: number2String,
         });
-        console.log(number1, number2);
         const result = Number(calculator.dispatch({ type: 'calculate' }));
         expect(result).toBeLessThanOrEqual(-number1);
         expect(result).toBeLessThanOrEqual(-number2);
@@ -119,9 +118,9 @@ describe('basic tests', () => {
 
 describe('Multiplication Tests', () => {
     it('should multiply 2 positive numbers and return a bigger one', () => {
-        const number1 = randomNumberBetween(0, 1000);
+        const number1 = randomNumberBetween(2, 1000);
         const number1String = number1.toString();
-        const number2 = randomNumberBetween(0, 1000);
+        const number2 = randomNumberBetween(2, 1000);
         const number2String = number2.toString();
         calculator.dispatch({
             type: 'addNumber',
@@ -142,9 +141,9 @@ describe('Multiplication Tests', () => {
     });
 
     it('should multiply 2 negative numbers and return a bigger positive one', () => {
-        const number1 = randomNumberBetween(0, 1000);
+        const number1 = randomNumberBetween(2, 1000);
         const number1String = number1.toString();
-        const number2 = randomNumberBetween(0, 1000);
+        const number2 = randomNumberBetween(2, 1000);
         const number2String = number2.toString();
         calculator.dispatch({
             type: 'addNegative',
@@ -174,9 +173,9 @@ describe('Multiplication Tests', () => {
     });
 
     it('should multiply a negative and a positive number return a smllaer negative one', () => {
-        const number1 = randomNumberBetween(1, 1000);
+        const number1 = randomNumberBetween(2, 1000);
         const number1String = number1.toString();
-        const number2 = randomNumberBetween(1, 1000);
+        const number2 = randomNumberBetween(2, 1000);
         const number2String = number2.toString();
         calculator.dispatch({
             type: 'addNegative',
@@ -206,7 +205,7 @@ describe('Division Tests', () => {
     it('should divide 2 positive numbers, numerator bigger than denominator', () => {
         const numerator = randomNumberBetween(100, 1000);
         const numertorString = numerator.toString();
-        const denominator = randomNumberBetween(1, 10);
+        const denominator = randomNumberBetween(2, 10);
         const denominatorString = denominator.toString();
         calculator.dispatch({
             type: 'addNumber',
@@ -227,7 +226,7 @@ describe('Division Tests', () => {
     });
 
     it('should divide 2 positive numbers, denominator bigger than numerator', () => {
-        const numerator = randomNumberBetween(1, 100);
+        const numerator = randomNumberBetween(10, 100);
         const numertorString = numerator.toString();
         const denominator = randomNumberBetween(100, 1000);
         const denominatorString = denominator.toString();

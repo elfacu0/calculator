@@ -17,7 +17,7 @@ export class Calculator {
         this.result = '';
         this.expression = [];
         this.currentTerm = '';
-        this.lastDigit = '*';
+        this.lastDigit = '';
     }
 
     dispatch = (action: Actions) => {
@@ -150,14 +150,14 @@ export class Calculator {
     clearExpression() {
         this.expression = [this.result];
         this.currentTerm = '';
-        this.lastDigit = '*';
+        this.lastDigit = '';
     }
 
     reset() {
         this.result = '';
         this.expression = [];
         this.currentTerm = '';
-        this.lastDigit = '*';
+        this.lastDigit = '';
         return '';
     }
 }
