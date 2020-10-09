@@ -305,3 +305,42 @@ describe('Division Tests', () => {
         expect(result).toBe(-numerator / denominator);
     });
 });
+
+describe('should return an empty string', () => {
+    it('remove an empty expression should return an empty string', () => {
+        const result = calculator.dispatch({ type: 'removeLastDigit' });
+        expect(result).toBe('');
+    });
+
+    it('trying to start a expression with a operator should return an empty string', () => {
+        const result = calculator.dispatch({
+            type: 'addOperator',
+            value: '/',
+        });
+        expect(result).toBe('');
+    });
+
+    it('passing no argument to dispatch function should return an empty string', () => {
+        // @ts-ignore
+        const result = calculator.dispatch({ type: '' });
+        expect(result).toBe('');
+    });
+});
+
+it('trying to calculate an empty expression should return 0', () => {
+    const result = calculator.dispatch({ type: 'calculate' });
+    expect(result).toBe('0');
+});
+
+it('trying to calculate an expression without a second number should return only the number', () => {
+    calculator.dispatch({
+        type: 'addNumber',
+        value: '2',
+    });
+    calculator.dispatch({
+        type: 'addOperator',
+        value: '/',
+    });
+    const result = calculator.dispatch({ type: 'calculate' });
+    expect(result).toBe('2');
+});

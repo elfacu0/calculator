@@ -24,6 +24,8 @@ it('should display a number and then remove it', () => {
     numberThreeButton.click();
     expect(expressionContainer.textContent).toBe('3');
     deleteButton.click();
+    fireEvent.mouseDown(deleteButton);
+    fireEvent.mouseUp(deleteButton);
     expect(expressionContainer).toBeEmpty();
 });
 
@@ -50,6 +52,23 @@ it('clicking several numbers should display them', () => {
     numberSevenButton.click();
     const expressionContainer = getByTestId('expression');
     expect(expressionContainer.textContent).toBe('137');
+});
+
+it('clicking all the numbers should display them', () => {
+    const { getByText, getByTestId } = render(<Calculator />);
+    getByText('0').click();
+    getByText('.').click();
+    getByText('1').click();
+    getByText('2').click();
+    getByText('3').click();
+    getByText('4').click();
+    getByText('5').click();
+    getByText('6').click();
+    getByText('7').click();
+    getByText('8').click();
+    getByText('9').click();
+    const expressionContainer = getByTestId('expression');
+    expect(expressionContainer.textContent).toBe('0.123456789');
 });
 
 it('clicking an operator should display it', () => {
@@ -95,4 +114,22 @@ it('holding DEL button should clear all when released', async () => {
     fireEvent.mouseUp(deleteButton);
     expect(resultContainer).toBeEmpty();
     expect(expressionContainer).toBeEmpty();
+});
+
+it('should display all operators and remove them', () => {
+    const { getByText, getByTestId } = render(<Calculator />);
+    const expressionContainer = getByTestId('expression');
+    const deleteButton = getByText('DEL');
+    getByText('9').click();
+    getByText('/').click();
+    expect(expressionContainer.textContent).toBe('9/');
+    deleteButton.click();
+    getByText('X').click();
+    expect(expressionContainer.textContent).toBe('9*');
+    deleteButton.click();
+    getByText('-').click();
+    expect(expressionContainer.textContent).toBe('9-');
+    deleteButton.click();
+    getByText('+').click();
+    expect(expressionContainer.textContent).toBe('9+');
 });

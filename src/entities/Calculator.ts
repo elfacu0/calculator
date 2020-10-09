@@ -46,9 +46,6 @@ export class Calculator {
                 return this.expression.join('');
             case 'removeLastDigit':
                 if (this.expression.length > 0) {
-                    if (this.expression[this.expression.length - 1] === '') {
-                        this.expression.pop();
-                    }
                     let lastTerm = this.expression.pop() || '';
                     lastTerm = lastTerm.substring(0, lastTerm.length - 1);
                     this.currentTerm = lastTerm;
