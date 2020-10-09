@@ -2,16 +2,14 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { Calculator as CalculatorEntity } from './entities/Calculator';
 import { Actions } from './entities/Calculator';
-const calculator = new CalculatorEntity();
-let startHoldingTime = new Date();
 
 const CalculatorContainer = styled.div`
     display: flex;
     flex-direction: column;
     height: 550px;
     min-width: 320px;
-    width: 40vw;
-    max-width: 800px;
+    width: 35vw;
+    max-width: 700px;
 `;
 
 const ResultContainer = styled.div`
@@ -73,6 +71,8 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
 `;
 
 export const Calculator: React.FC = () => {
+    const [calculator] = useState(new CalculatorEntity());
+    const [startHoldingTime, setStartHoldingTime] = useState(new Date());
     const [expression, setExpression] = useState('');
     const [result, setResult] = useState('');
     const addDigit = (action: Actions) => {
@@ -90,6 +90,7 @@ export const Calculator: React.FC = () => {
             setExpression(calculator.result);
         }
     };
+
     return (
         <CalculatorContainer>
             <ResultContainer>
@@ -228,12 +229,13 @@ export const Calculator: React.FC = () => {
                 <ButtonsColumn>
                     <ButtonWrapper
                         operator={1}
+                        data-testid="delete"
                         onClick={() => {
                             addDigit({
                                 type: 'removeLastDigit',
                             });
                         }}
-                        onMouseDown={() => (startHoldingTime = new Date())}
+                        onMouseDown={() => setStartHoldingTime(new Date())}
                         onMouseUp={() => {
                             clearAllInput({ type: 'clearAll' });
                         }}
