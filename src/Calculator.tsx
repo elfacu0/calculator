@@ -28,15 +28,15 @@ const ResultContainer = styled.div`
     overflow: hidden;
 `;
 
-const ExpressionText = styled.span`
+const Expression = styled.span`
     color: white;
     font-size: 28px;
-    height: 40%;
+    height: 50%;
     white-space: nowrap;
     text-align-last: end;
 `;
 
-const ResultText = styled.span`
+const Result = styled(Expression)`
     color: lightgray;
     font-size: 30px;
 `;
@@ -99,7 +99,7 @@ export const Calculator: React.FC = () => {
     };
 
     const clearAllInput = (action: Actions) => {
-        if (new Date().getTime() - startHoldingTime.getTime() > 300) {
+        if (new Date().getTime() - startHoldingTime.getTime() > 200) {
             setResult(calculator.dispatch(action));
             setExpression(calculator.result);
         }
@@ -146,10 +146,8 @@ export const Calculator: React.FC = () => {
             data-testid="calculator-container"
         >
             <ResultContainer>
-                <ExpressionText data-testid="expression">
-                    {expression}
-                </ExpressionText>
-                <ResultText data-testid="result">{result}</ResultText>
+                <Expression data-testid="expression">{expression}</Expression>
+                <Result data-testid="result">{result}</Result>
             </ResultContainer>
             <ButtonsContainer>
                 <ButtonsColumn>
