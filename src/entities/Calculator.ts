@@ -23,38 +23,13 @@ export class Calculator {
     dispatch = (action: Actions) => {
         switch (action.type) {
             case 'addNegative':
-                if (this.lastDigit !== '-') {
-                    this.currentTerm = '-';
-                    this.expression.push(this.currentTerm);
-                    this.setLastDigit();
-                }
-                return this.expression.join('');
+                return this.addNegative();
             case 'addNumber':
-                if (this.isLastDigitOperator() === false) {
-                    this.expression.pop();
-                }
-                this.currentTerm += action.value;
-                this.expression.push(this.currentTerm);
-                this.setLastDigit();
-                return this.expression.join('');
+                return this.addNumber(action.value);
             case 'addOperator':
-                if (this.isLastDigitNumber() === true) {
-                    this.expression.push(action.value);
-                    this.currentTerm = '';
-                    this.setLastDigit();
-                }
-                return this.expression.join('');
+                return this.addOperator(action.value);
             case 'removeLastDigit':
-                if (this.expression.length > 0) {
-                    let lastTerm = this.expression.pop() || '';
-                    lastTerm = lastTerm.substring(0, lastTerm.length - 1);
-                    this.currentTerm = lastTerm;
-                    this.setLastDigit();
-                    if (this.currentTerm !== '') {
-                        this.expression.push(lastTerm);
-                    }
-                }
-                return this.expression.join('');
+                return this.removeLastDigit();
             case 'calculate':
                 return this.calculate(this.expression);
             case 'clearAll':
@@ -63,6 +38,50 @@ export class Calculator {
                 return '';
         }
     };
+
+    addNegative() {
+        if (this.lastDigit !== '-') {
+            this.currentTerm = '-';
+            this.expression.push(this.currentTerm);
+            this.setLastDigit();
+        }
+        return this.expression.join('');
+    }
+
+    addNumber(number: string) {
+        if (number === '.' && this.currentTerm.includes('.')) {
+            return this.expression.join('');
+        }
+        if (this.isLastDigitOperator() === false) {
+            this.expression.pop();
+        }
+        this.currentTerm += number;
+        this.expression.push(this.currentTerm);
+        this.setLastDigit();
+        return this.expression.join('');
+    }
+
+    addOperator(value: string) {
+        if (this.isLastDigitNumber() === true) {
+            this.expression.push(value);
+            this.currentTerm = '';
+            this.setLastDigit();
+        }
+        return this.expression.join('');
+    }
+
+    removeLastDigit() {
+        if (this.expression.length > 0) {
+            let lastTerm = this.expression.pop() || '';
+            lastTerm = lastTerm.substring(0, lastTerm.length - 1);
+            this.currentTerm = lastTerm;
+            this.setLastDigit();
+            if (this.currentTerm !== '') {
+                this.expression.push(lastTerm);
+            }
+        }
+        return this.expression.join('');
+    }
 
     calculate(expression: string[]) {
         while (this.isLastDigitOperator() || this.lastDigit === '-') {
@@ -105,6 +124,7 @@ export class Calculator {
         }
         return expression;
     }
+
     sum(expression: string[]) {
         let total = 0;
         let currentNumber = 0;
