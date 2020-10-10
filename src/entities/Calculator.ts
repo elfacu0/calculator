@@ -40,7 +40,7 @@ export class Calculator {
     };
 
     addNegative() {
-        if (this.lastDigit !== '-') {
+        if (this.lastDigit !== '-' && this.lastDigit !== '.') {
             this.currentTerm = '-';
             this.expression.push(this.currentTerm);
             this.setLastDigit();
