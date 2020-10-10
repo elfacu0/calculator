@@ -71,6 +71,36 @@ it('clicking all the numbers should display them', () => {
     expect(expressionContainer.textContent).toBe('0.123456789');
 });
 
+it('should not appear two dots when dot button is clicked twice', async () => {
+    const { getByText, getByTestId } = render(<Calculator />);
+    const expressionContainer = getByTestId('expression');
+    const dotButton = getByText('.');
+    dotButton.click();
+    dotButton.click();
+    expect(expressionContainer.textContent).toBe('.');
+});
+
+it('should not appear two dots when there is already one in  the term', async () => {
+    const { getByText, getByTestId } = render(<Calculator />);
+    const expressionContainer = getByTestId('expression');
+    const numberOneButton = getByText('1');
+    const dotButton = getByText('.');
+    dotButton.click();
+    numberOneButton.click();
+    dotButton.click();
+    expect(expressionContainer.textContent).toBe('.1');
+});
+
+it('should not be possible to put a minus after a dot', async () => {
+    const { getByText, getByTestId } = render(<Calculator />);
+    const expressionContainer = getByTestId('expression');
+    const minusButton = getByText('-');
+    const dotButton = getByText('.');
+    dotButton.click();
+    minusButton.click();
+    expect(expressionContainer.textContent).toBe('.');
+});
+
 it('clicking an operator should display it', () => {
     const { getByText, getByTestId } = render(<Calculator />);
     const numberThreeButton = getByText('3');
