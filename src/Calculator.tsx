@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { Calculator as CalculatorEntity } from './entities/Calculator';
 import { Actions } from './entities/Calculator';
@@ -82,6 +82,13 @@ export const Calculator: React.FC = () => {
     const [startHoldingTime, setStartHoldingTime] = useState(new Date());
     const [expression, setExpression] = useState('');
     const [result, setResult] = useState('');
+    const calculatorRef = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        if (calculatorRef.current !== null) {
+            calculatorRef.current.focus();
+        }
+    }, []);
+
     const addDigit = (action: Actions) => {
         setExpression(calculator.dispatch(action));
     };
@@ -135,6 +142,7 @@ export const Calculator: React.FC = () => {
         <CalculatorContainer
             tabIndex={0}
             onKeyDown={(e) => handleKeyboardInput(e)}
+            ref={calculatorRef}
         >
             <ResultContainer>
                 <ExpressionText data-testid="expression">
