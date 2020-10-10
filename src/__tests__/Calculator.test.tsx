@@ -163,3 +163,61 @@ it('should display all operators and remove them', () => {
     getByText('+').click();
     expect(expressionContainer.textContent).toBe('9+');
 });
+
+describe('test keyboard interaction', () => {
+    it('should display all the numbers', () => {
+        const { getByTestId } = render(<Calculator />);
+        const expressionContainer = getByTestId('expression');
+        const container = getByTestId('calculator-container');
+        fireEvent.keyDown(container, { key: '0' });
+        fireEvent.keyDown(container, { key: '.' });
+        fireEvent.keyDown(container, { key: '1' });
+        fireEvent.keyDown(container, { key: '2' });
+        fireEvent.keyDown(container, { key: '3' });
+        fireEvent.keyDown(container, { key: '4' });
+        fireEvent.keyDown(container, { key: '5' });
+        fireEvent.keyDown(container, { key: '6' });
+        fireEvent.keyDown(container, { key: '7' });
+        fireEvent.keyDown(container, { key: '8' });
+        fireEvent.keyDown(container, { key: '9' });
+        expect(expressionContainer.textContent).toBe('0.123456789');
+    });
+
+    it('should remove last digit of expression', () => {
+        const { getByTestId } = render(<Calculator />);
+        const expressionContainer = getByTestId('expression');
+        const container = getByTestId('calculator-container');
+        fireEvent.keyDown(container, { key: '0' });
+        fireEvent.keyDown(container, { key: 'Backspace' });
+        expect(expressionContainer.textContent).toBe('');
+    });
+
+    it('should display all the operators', () => {
+        const { getByTestId } = render(<Calculator />);
+        const expressionContainer = getByTestId('expression');
+        const container = getByTestId('calculator-container');
+        fireEvent.keyDown(container, { key: '1' });
+        fireEvent.keyDown(container, { key: '+' });
+        expect(expressionContainer.textContent).toBe('1+');
+        fireEvent.keyDown(container, { key: 'Backspace' });
+        fireEvent.keyDown(container, { key: '-' });
+        expect(expressionContainer.textContent).toBe('1-');
+        fireEvent.keyDown(container, { key: 'Backspace' });
+        fireEvent.keyDown(container, { key: '/' });
+        expect(expressionContainer.textContent).toBe('1/');
+        fireEvent.keyDown(container, { key: 'Backspace' });
+        fireEvent.keyDown(container, { key: '*' });
+        expect(expressionContainer.textContent).toBe('1*');
+    });
+
+    it('should show the right result', () => {
+        const { getByTestId } = render(<Calculator />);
+        const expressionContainer = getByTestId('expression');
+        const container = getByTestId('calculator-container');
+        fireEvent.keyDown(container, { key: '1' });
+        fireEvent.keyDown(container, { key: '+' });
+        fireEvent.keyDown(container, { key: '2' });
+        fireEvent.keyDown(container, { key: 'Enter' });
+        expect(expressionContainer.textContent).toBe('3');
+    });
+});

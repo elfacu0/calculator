@@ -143,6 +143,7 @@ export const Calculator: React.FC = () => {
             tabIndex={0}
             onKeyDown={(e) => handleKeyboardInput(e)}
             ref={calculatorRef}
+            data-testid="calculator-container"
         >
             <ResultContainer>
                 <ExpressionText data-testid="expression">
