@@ -84,7 +84,7 @@ export class Calculator {
     }
 
     calculate(expression: string[]) {
-        while (this.isLastDigitOperator() || this.lastDigit === '-') {
+        while (this.isLastDigitNumber() === false && this.lastDigit !== '') {
             expression.pop();
             this.setLastDigit();
         }
@@ -134,15 +134,7 @@ export class Calculator {
                 total += currentNumber;
             }
         }
-        this.expression = [];
         return total;
-    }
-
-    setLastDigit() {
-        if (this.expression.length > 0) {
-            const lastTerm = this.expression[this.expression.length - 1];
-            this.lastDigit = lastTerm[lastTerm.length - 1];
-        }
     }
 
     isLastDigitOperator() {
@@ -161,6 +153,13 @@ export class Calculator {
             return true;
         } else {
             return false;
+        }
+    }
+
+    setLastDigit() {
+        if (this.expression.length > 0) {
+            const lastTerm = this.expression[this.expression.length - 1];
+            this.lastDigit = lastTerm[lastTerm.length - 1];
         }
     }
 
