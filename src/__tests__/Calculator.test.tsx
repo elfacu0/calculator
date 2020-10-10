@@ -215,9 +215,9 @@ describe('test keyboard interaction', () => {
         const expressionContainer = getByTestId('expression');
         const container = getByTestId('calculator-container');
         fireEvent.keyDown(container, { key: '1' });
-        fireEvent.keyDown(container, { key: '+' });
-        fireEvent.keyDown(container, { key: '2' });
+        fireEvent.keyDown(container, { key: '-' });
+        fireEvent.keyDown(container, { key: '6' });
         fireEvent.keyDown(container, { key: 'Enter' });
-        expect(expressionContainer.textContent).toBe('3');
+        expect(expressionContainer.textContent).toBe('-5');
     });
 });
