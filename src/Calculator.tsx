@@ -10,10 +10,14 @@ const CalculatorContainer = styled.div`
     min-width: 320px;
     width: 35vw;
     max-width: 700px;
+    &:focus {
+        outline: none;
+    }
 `;
 
 const ResultContainer = styled.div`
     background-color: #2b292a;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -21,12 +25,15 @@ const ResultContainer = styled.div`
     padding: 20px;
     width: 100%;
     height: 30%;
-    overflow: auto;
+    overflow: hidden;
 `;
 
 const ExpressionText = styled.span`
     color: white;
     font-size: 28px;
+    height: 40%;
+    white-space: nowrap;
+    text-align-last: end;
 `;
 
 const ResultText = styled.span`
@@ -85,14 +92,50 @@ export const Calculator: React.FC = () => {
     };
 
     const clearAllInput = (action: Actions) => {
-        if (new Date().getTime() - startHoldingTime.getTime() > 400) {
+        if (new Date().getTime() - startHoldingTime.getTime() > 300) {
             setResult(calculator.dispatch(action));
             setExpression(calculator.result);
         }
     };
 
+    const handleKeyboardInput = (e: React.KeyboardEvent) => {
+        const OPERATORS = ['*', '/', '+'];
+        const NUMBERS = ['0', '.', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        if (NUMBERS.includes(e.key)) {
+            return addDigit({
+                type: 'addNumber',
+                value: e.key,
+            });
+        }
+        if (OPERATORS.includes(e.key)) {
+            return addDigit({
+                type: 'addOperator',
+                value: e.key,
+            });
+        }
+        if (e.key === '-') {
+            return addDigit({
+                type: 'addNegative',
+                value: e.key,
+            });
+        }
+        if (e.key === 'Backspace') {
+            return addDigit({
+                type: 'removeLastDigit',
+            });
+        }
+        if (e.key === 'Enter') {
+            return addDigit({
+                type: 'calculate',
+            });
+        }
+    };
+
     return (
-        <CalculatorContainer>
+        <CalculatorContainer
+            tabIndex={0}
+            onKeyDown={(e) => handleKeyboardInput(e)}
+        >
             <ResultContainer>
                 <ExpressionText data-testid="expression">
                     {expression}
