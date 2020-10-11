@@ -132,7 +132,7 @@ export const Calculator: React.FC = () => {
             });
         }
         if (e.key === 'Enter') {
-            return addDigit({
+            return getResult({
                 type: 'calculate',
             });
         }
