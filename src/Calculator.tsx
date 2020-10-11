@@ -56,12 +56,12 @@ const ButtonsColumn = styled.div`
     width: 100%;
 `;
 
-type ButtonWrapperProps = {
+type ButtonProps = {
     operator?: number;
 };
 
-const ButtonWrapper = styled.div<ButtonWrapperProps>`
-    background-color: ${(props: ButtonWrapperProps) =>
+const Button = styled.div<ButtonProps>`
+    background-color: ${(props: ButtonProps) =>
         props.operator === 1 ? '#193543' : '#343434'};
     display: flex;
     justify-content: center;
@@ -151,7 +151,7 @@ export const Calculator: React.FC = () => {
             </ResultContainer>
             <ButtonsContainer>
                 <ButtonsColumn>
-                    <ButtonWrapper
+                    <Button
                         onClick={() =>
                             addDigit({
                                 type: 'addNumber',
@@ -160,8 +160,8 @@ export const Calculator: React.FC = () => {
                         }
                     >
                         7
-                    </ButtonWrapper>
-                    <ButtonWrapper
+                    </Button>
+                    <Button
                         onClick={() =>
                             addDigit({
                                 type: 'addNumber',
@@ -170,8 +170,8 @@ export const Calculator: React.FC = () => {
                         }
                     >
                         4
-                    </ButtonWrapper>
-                    <ButtonWrapper
+                    </Button>
+                    <Button
                         onClick={() =>
                             addDigit({
                                 type: 'addNumber',
@@ -180,8 +180,8 @@ export const Calculator: React.FC = () => {
                         }
                     >
                         1
-                    </ButtonWrapper>
-                    <ButtonWrapper
+                    </Button>
+                    <Button
                         onClick={() =>
                             addDigit({
                                 type: 'addNumber',
@@ -190,10 +190,10 @@ export const Calculator: React.FC = () => {
                         }
                     >
                         .
-                    </ButtonWrapper>
+                    </Button>
                 </ButtonsColumn>
                 <ButtonsColumn>
-                    <ButtonWrapper
+                    <Button
                         onClick={() =>
                             addDigit({
                                 type: 'addNumber',
@@ -202,8 +202,8 @@ export const Calculator: React.FC = () => {
                         }
                     >
                         8
-                    </ButtonWrapper>
-                    <ButtonWrapper
+                    </Button>
+                    <Button
                         onClick={() =>
                             addDigit({
                                 type: 'addNumber',
@@ -212,8 +212,8 @@ export const Calculator: React.FC = () => {
                         }
                     >
                         5
-                    </ButtonWrapper>
-                    <ButtonWrapper
+                    </Button>
+                    <Button
                         onClick={() =>
                             addDigit({
                                 type: 'addNumber',
@@ -222,8 +222,8 @@ export const Calculator: React.FC = () => {
                         }
                     >
                         2
-                    </ButtonWrapper>
-                    <ButtonWrapper
+                    </Button>
+                    <Button
                         onClick={() =>
                             addDigit({
                                 type: 'addNumber',
@@ -232,10 +232,10 @@ export const Calculator: React.FC = () => {
                         }
                     >
                         0
-                    </ButtonWrapper>
+                    </Button>
                 </ButtonsColumn>
                 <ButtonsColumn>
-                    <ButtonWrapper
+                    <Button
                         onClick={() =>
                             addDigit({
                                 type: 'addNumber',
@@ -244,8 +244,8 @@ export const Calculator: React.FC = () => {
                         }
                     >
                         9
-                    </ButtonWrapper>
-                    <ButtonWrapper
+                    </Button>
+                    <Button
                         onClick={() =>
                             addDigit({
                                 type: 'addNumber',
@@ -254,8 +254,8 @@ export const Calculator: React.FC = () => {
                         }
                     >
                         6
-                    </ButtonWrapper>
-                    <ButtonWrapper
+                    </Button>
+                    <Button
                         onClick={() =>
                             addDigit({
                                 type: 'addNumber',
@@ -264,8 +264,8 @@ export const Calculator: React.FC = () => {
                         }
                     >
                         3
-                    </ButtonWrapper>
-                    <ButtonWrapper
+                    </Button>
+                    <Button
                         operator={1}
                         onClick={() =>
                             getResult({
@@ -274,10 +274,10 @@ export const Calculator: React.FC = () => {
                         }
                     >
                         =
-                    </ButtonWrapper>
+                    </Button>
                 </ButtonsColumn>
                 <ButtonsColumn>
-                    <ButtonWrapper
+                    <Button
                         operator={1}
                         data-testid="delete"
                         onClick={() => {
@@ -291,8 +291,8 @@ export const Calculator: React.FC = () => {
                         }}
                     >
                         DEL
-                    </ButtonWrapper>
-                    <ButtonWrapper
+                    </Button>
+                    <Button
                         operator={1}
                         onClick={() => {
                             addDigit({
@@ -302,8 +302,8 @@ export const Calculator: React.FC = () => {
                         }}
                     >
                         /
-                    </ButtonWrapper>
-                    <ButtonWrapper
+                    </Button>
+                    <Button
                         operator={1}
                         onClick={() =>
                             addDigit({
@@ -313,8 +313,8 @@ export const Calculator: React.FC = () => {
                         }
                     >
                         X
-                    </ButtonWrapper>
-                    <ButtonWrapper
+                    </Button>
+                    <Button
                         operator={1}
                         onClick={() =>
                             addDigit({
@@ -324,8 +324,8 @@ export const Calculator: React.FC = () => {
                         }
                     >
                         -
-                    </ButtonWrapper>
-                    <ButtonWrapper
+                    </Button>
+                    <Button
                         operator={1}
                         onClick={() =>
                             addDigit({
@@ -335,7 +335,7 @@ export const Calculator: React.FC = () => {
                         }
                     >
                         +
-                    </ButtonWrapper>
+                    </Button>
                 </ButtonsColumn>
             </ButtonsContainer>
         </CalculatorContainer>
