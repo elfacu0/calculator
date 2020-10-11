@@ -160,6 +160,8 @@ export class Calculator {
         if (this.expression.length > 0) {
             const lastTerm = this.expression[this.expression.length - 1];
             this.lastDigit = lastTerm[lastTerm.length - 1];
+        } else {
+            this.lastDigit = '';
         }
     }
 
