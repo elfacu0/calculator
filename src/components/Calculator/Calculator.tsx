@@ -1,81 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
-import styled from '@emotion/styled';
-import { Calculator as CalculatorEntity } from './entities/Calculator';
-import { Actions } from './entities/Calculator';
-
-const CalculatorContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 550px;
-    min-width: 320px;
-    width: 35vw;
-    max-width: 700px;
-    &:focus {
-        outline: none;
-    }
-`;
-
-const ResultContainer = styled.div`
-    background-color: #2b292a;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: space-around;
-    padding: 20px;
-    width: 100%;
-    height: 30%;
-    overflow: hidden;
-`;
-
-const Expression = styled.span`
-    color: white;
-    font-size: 28px;
-    height: 50%;
-    white-space: nowrap;
-    text-align-last: end;
-`;
-
-const Result = styled(Expression)`
-    color: lightgray;
-    font-size: 30px;
-`;
-
-const ButtonsContainer = styled.div`
-    background-color: #212123;
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: auto auto auto auto;
-`;
-
-const ButtonsColumn = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 100%;
-`;
-
-type ButtonProps = {
-    operator?: number;
-};
-
-const Button = styled.div<ButtonProps>`
-    background-color: ${(props: ButtonProps) =>
-        props.operator === 1 ? '#193543' : '#343434'};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #e8e8e8;
-    font-size: 26px;
-    border-radius: 5px;
-    margin: 10px;
-    height: 100%;
-    cursor: pointer;
-    &:hover {
-        background-color: #00d4d4;
-    }
-`;
+import { Calculator as CalculatorEntity } from '../../entities/Calculator';
+import { Actions } from '../../entities/Calculator';
+import { CalculatorContainer } from './CalculatorContainer';
+import { ResultContainer } from './ResultContainer';
+import { Expression } from './Expression';
+import { Result } from './Result';
+import { ButtonsContainer } from './ButtonsContainer';
+import { ButtonsColumn } from './ButtonsColumn';
+import { Button } from './Button';
 
 export const Calculator: React.FC = () => {
     const [calculator] = useState(new CalculatorEntity());

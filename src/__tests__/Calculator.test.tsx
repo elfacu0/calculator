@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
-import { Calculator } from '../Calculator';
+import { Calculator } from '../components/Calculator/Calculator';
 
 const mockHolding = (time: number) => {
     return new Promise((resolve) => {

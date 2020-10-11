@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Calculator } from './Calculator';
+import { Calculator } from './components/Calculator/Calculator';
 
 const AppWrapper = styled.div`
     width: 100%;
