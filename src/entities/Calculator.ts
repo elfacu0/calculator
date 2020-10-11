@@ -85,8 +85,7 @@ export class Calculator {
 
     calculate(expression: string[]) {
         while (this.isLastDigitNumber() === false && this.lastDigit !== '') {
-            expression.pop();
-            this.setLastDigit();
+            this.removeLastDigit();
         }
         expression = this.multiplyAndDivide(expression);
         this.result = this.sum(expression).toString();
